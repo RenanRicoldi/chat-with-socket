@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <title>Socket.IO chat</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+  </head>
+  <body>
+    <header id="title">
+        <h1>Real time chat with Socket.io and Node.Js</h1>
+    </header>
+    <section id="chat">
+    </section>
+    <section id="message-input">
+      <form id="mensagens" action="">
+          <ul id="messages"></ul>
+          <input id="nome" autocomplete="off" placeholder="Digite seu nome aqui" />
+          <input id="mensagem" autocomplete="off" placeholder="Digite algo aqui" /><button>Send</button>
+      </form>
+    </section>
+    <script>
+        $(function () {
+          var socket = io();
+          $('form').submit(function(e) {
+            e.preventDefault(); // prevents page reloading
+            socket.emit('mensagem', $('#nome').val() + ' disse: ' + $('#mensagem').val())
+            $('#mensagem').val('')
+            return false
+          })
+        })
+      </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+          var socket = io();
+          $('form').submit(function(e) {
+            e.preventDefault(); // prevents page reloading
+            socket.emit('mensagem', $('#nome').val() + ': ' + $('#mensagem').val())
+            $('#mensagem').val('')
+            return false
+          })
+        })
+      </script>
+  </body>
+</html>
